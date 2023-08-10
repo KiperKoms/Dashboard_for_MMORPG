@@ -1,0 +1,18 @@
+{% extends 'flatpages/default.html' %}
+
+<!DOCTYPE html>
+
+{% block content %}
+<br><br><br><br><br>
+<form method="post" action="{% url 'login' %}">
+{% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Войти">
+    <input type="hidden" name="next" value="{{ next }}">
+</form>
+<br>
+Нет учетной записи? <a href="{% url 'signup' %}" style="text-decoration: none; color: #778899;">Регистрация</a><br><br><br>
+
+{% endblock %}
+</html>
+

@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+    <p>Привет, {{ user.username }}! Вот объявления за неделю!</p>
+    {% for post in posts %}
+        <p>
+            {{ post.dateCreation }} by {{ post.author.author }}
+            <a href="{{ link }}{{ post.pk }}">{{ post.title }}</a>
+        </p>
+    {% endfor %}
+</body>
+</html>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+{% extends 'flatpages/default.html' %}
+
+<html>
+{% block title %}
+    Удаление публиккации
+{% endblock title %}
+
+{% block content %}
+    <h2 style="text-align: center">Удалить публикацию</h2>
+<br>
+    <hr>
+{% if post.author == request.user %}
+    <form action="" method="post">
+        {% csrf_token %}
+        <p>Delete {{ object.title }}?</p>
+        <input type="submit" value="Удалить" />
+    </form>
+{% else %}
+<h6 style="text-align: center">Вы можете удалять только свои публикации</h6>
+{% endif %}
+<br>
+    <input type=button value="Назад" class="btn btn-secondary" onClick="javascript:history.go(-1);">
+{% endblock content %}
+</html>

@@ -1,0 +1,61 @@
+{% extends 'flatpages/default.html' %}
+
+
+{% block title %}
+    Публикации
+{% endblock title %}
+
+{% block content %}
+
+<div style="display: flex">
+    <div style="flex-basis: 90%">
+        {% if user.is_authenticated %}
+        Вы зашли как {{ request.user.username }}!
+        {% else %}
+        <p><a href="{% url 'login' %}" style="text-decoration: none; color: #778899;">Войти</a> для написания новостей и комментариев</p>
+
+        {% endif %}
+        <br>
+
+        <h2>Публикации</h2>
+        <p>(Всего публикаций: {{ all_posts|length }})</p>
+                <hr>
+                {% if posts %}
+                    <table >
+                    {% for post in posts %}
+                        <tr>
+                            <td >
+                                <h6>{{ post.id }}</h6>
+                            </td>
+                            <td>
+                                </h6>
+                                <p style="text-align: justify">Автор: {{ post.author|truncatewords:25|safe }}</p>
+                                <h6 style="text-align: justify">
+                                    <a href="{% url 'post_detail' post.id %}" >{{ post.title }}</a>
+                                    <i>| категория: {{ post.category }} |</i>
+                                    <i>{{ post.dateCreation|date:'M d Y' }}</i>
+                                </h6>
+                                <p style="text-align: justify">{{ post.text|truncatewords:50|safe }}</p>
+                                <hr>
+                            </td>
+
+                        </tr>
+                        <tr>
+                            <td>
+                                <br>
+                            </td>
+                        </tr>
+
+                    {% endfor %}
+                    </table>
+                {% else %}
+                    <h3>Публикации отсутствуют</h3>
+                {% endif %}
+
+
+{% if posts %}
+{% include 'inc/pagination.html' %}
+{% endif %}
+
+
+{% endblock content %}

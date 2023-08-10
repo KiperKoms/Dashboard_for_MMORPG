@@ -1,0 +1,16 @@
+{% extends 'flatpages/default.html' %}
+
+{% block title %}
+You have signed up
+{% endblock title %}
+
+{% block content %}
+<br>
+<div class="container">
+    <p style="text-align: center">Hello, {{user}}, you have successfully signed up!</p>
+    <h6 style="text-align: center">
+        You can now proceed to <a href="{% url 'login' %}" style="text-decoration: none; color: #778899;">Log in</a>
+    </h6>
+
+</div>
+{% endblock content %}

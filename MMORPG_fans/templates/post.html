@@ -1,0 +1,81 @@
+{% extends 'flatpages/default.html' %}
+
+{% block title %}
+Объявление
+{% endblock title %}
+
+{% block content %}
+    <br><br>
+
+</h6>
+    <p style="text-align: justify">Автор: {{ post.author }}</p>
+    <h6 style="text-align: justify">
+        <h3>{{ post.title }}</h3><br>
+        <i> категория: {{ post.category }} |</i>
+        <i>{{ post.dateCreation|date:'M d Y' }}</i>
+    </h6>
+
+<br><br>
+
+    <a class="btn btn-secondary" onClick="javascript:history.go(-1);" role="button">назад</a>
+    {% if post.author == request.user %}
+    <a class="btn btn-secondary" href='{{ request.get_full_path }}/edit' role="button">Изменить</a>
+    <a class="btn btn-secondary" href='{{ request.get_full_path }}/delete' role="button">Удалить</a>
+    {% endif %}
+
+ <hr>
+ <br><br>
+    <p>{{ post.text|safe }}</p>
+
+ <hr>
+
+    <h5 style="text-align: center" >Комментарии</h5>
+    {% if post.comment_set.all|length > 0 %}
+            {% for comment in post.comment_set.all reversed %}
+                {% if comment.accepted %}
+                <tr>
+                    <td><i>{{ comment.comment_author }} </i></td>
+                    <td><i>| {{ comment.comment_dateCreation|date:'d.m.Y' }} </i></td>
+                    {% if comment.comment_author == request.user %}
+                            <i>| <a href="{% url 'comment_delete' comment.pk %}">Удалить</a></i>
+                        {% endif %}
+                    <br>
+                    <td>{{ comment.comment_text }}</td><br>
+
+                    <br><br>
+
+                </tr>
+            {% endif %}
+            {% endfor %}
+<!--       </table>-->
+    {% else %}
+        Комментариев нет
+    {% endif %}
+
+<br><br>
+
+{% if request.user.is_authenticated and post.author != request.user %}
+<br>
+    <h6 style="text-align: center">Напишите свой комментарий:</h6>
+	<form method="post" enctype="multipart/form-data" style="text-align: center">
+
+		{% csrf_token %}
+	    {{ form.as_p }}
+		<input class="btn btn-secondary" type="submit" value="Отправить">
+	</form>
+
+
+{% endif %}
+
+
+    <hr>
+
+    <br>
+    <a class="btn btn-secondary" href='{% url "posts" %}' role="button">Назад</a>
+    {% if post.author == request.user.author %}
+    <a class="btn btn-secondary" href='{{ request.get_full_path }}/edit' role="button">Изменить</a>
+    <a class="btn btn-secondary" href='{{ request.get_full_path }}/delete' role="button">Удалить</a>
+    {% endif %}
+ <br> <br> <br> <br>
+
+{% endblock content %}

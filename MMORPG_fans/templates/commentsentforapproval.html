@@ -1,0 +1,32 @@
+{% extends 'flatpages/default.html' %}
+
+{% block title %}
+    Публикации
+{% endblock title %}
+
+{% block content %}
+
+<div style="display: flex">
+    <div style="flex-basis: 90%">
+        {% if user.is_authenticated %}
+        Привет, {{ request.user.username }}!
+        {% else %}
+        <p><a href="{% url 'login' %}" style="text-decoration: none; color: #778899;">Log in</a></p>
+
+        {% endif %}
+        <br>
+{% for comment in comments reversed %}
+        {% if not comment.accepted %}
+             {% if comment.comment_author == request.user %}
+<h6 style="text-align: center" > Идет запрос к актору {{ comment.comment_post.author}}.<br>
+            Ожидайте оповещения по электронной почте</h6>
+        <br>
+        {% endif %}
+            {% endif %}
+{% endfor %}
+
+
+<br>
+    <a class="btn btn-secondary" href='{% url "posts" %}' role="button">Назад</a>
+
+{% endblock content %}

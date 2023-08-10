@@ -1,0 +1,24 @@
+{% extends 'flatpages/default.html' %}
+
+
+{% block content %}
+<h1>Создание публикации</h1>
+{% load static %}
+
+<hr>
+{% if user.is_authenticated %}
+<br>
+    <h3>Новая публикация</h3><br>
+	<form method="post" enctype="multipart/form-data">
+		{% csrf_token %}
+        {{ form.media }}
+        {{ form.as_p }}
+		<input class="btn btn-secondary" type="submit" value="Сохранить">
+	</form><br>
+    <input type=button value="Назад" class="btn btn-secondary" onClick="javascript:history.go(-1);">
+{% else %}
+У Вас нет прав на создание.
+<br><br><br>
+<a href="{% url '/' %}">Вернуться</a><br>
+{% endif %}
+{% endblock content %}

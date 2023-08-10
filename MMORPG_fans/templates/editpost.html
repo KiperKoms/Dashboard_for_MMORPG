@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+{% extends 'flatpages/default.html' %}
+
+<html lang="en">
+{% block content %}
+<br>
+  <h2 style="text-align: center">Изменить публикацию</h2>
+  <hr>
+{% if post.author == request.user %}
+  <form action="" method="post">
+      {% csrf_token %}
+      {{ form.media }}
+      {{ form.as_p }}
+      <input type="submit" value="Сохранить"/>
+  </form>
+{% else %}
+<h6 style="text-align: center">Можно изменить только свои публикации</h6>
+{% endif %}
+<br>
+    <input type=button value="Назад" class="btn btn-secondary" onClick="javascript:history.go(-1);">
+{% endblock content %}
+</html>

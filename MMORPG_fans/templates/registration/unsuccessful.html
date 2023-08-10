@@ -1,0 +1,13 @@
+{% extends 'flatpages/default.html' %}
+
+{% block title %}
+The code is not valid
+{% endblock title %}
+
+
+{% block content %}
+<p style="text-align: justify">The code is not valid, please, try again!
+    <a href="{% url 'signup' %}" style="text-decoration: none; color: #778899;">Try again to sign up</a><br>
+    <a href="{% url 'posts' %}" style="text-decoration: none; color: #778899;">or cancel</a>
+</p>
+{% endblock content %}

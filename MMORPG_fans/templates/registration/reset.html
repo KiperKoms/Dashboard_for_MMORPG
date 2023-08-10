@@ -1,0 +1,19 @@
+{% extends 'flatpages/default.html' %}
+
+{% block title %}
+Reset registration
+{% endblock title %}
+
+
+{% block content %}
+<body>
+    <div class="container">
+    <form method="post" action="{% url 'reset' %}">
+        {% csrf_token %}
+        <p>An error occurred while registering. Perhaps a user with the same name already exists.
+           If you unsuccessfully entered the code when verifying registration, we recommend that you reset the progress...</p>
+        <p><input type="submit" value="Reset"></p>
+    </form>
+    </div>
+</body>
+{% endblock content %}

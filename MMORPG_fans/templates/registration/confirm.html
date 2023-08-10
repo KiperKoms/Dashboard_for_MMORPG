@@ -1,0 +1,21 @@
+{% extends 'flatpages/default.html' %}
+
+{% block title %}Registration confirmation{% endblock title %}
+
+{% block content %}
+<body>
+<br>
+    <div class="container">
+    <form method="post" action="{% url 'confirm' generated_code.id %}">
+        {% csrf_token %}
+        <p>{{ user.username }}, enter the authorisation code</p>
+        {{form.as_p}}
+        <input id="user_name" type="hidden" name="name" value="{{ user.username }}">
+        <label for="user_code">Enter the code: </label>
+        <input id="user_code" type="text" name="code" placeholder="Your code" value="{{ code }}">
+        <br>
+        <p><input type="submit" value="Check code"></p>
+    </form>
+    </div>
+</body>
+{% endblock content %}

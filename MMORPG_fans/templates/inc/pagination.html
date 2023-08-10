@@ -1,0 +1,27 @@
+{% load custom_tags %}
+
+  {# Добавляем пагинацию на страницу #}
+
+   {# Информация о предыдущих страницах #}
+   {% if page_obj.has_previous %}
+       <a href="?{% url_replace page=1 %}" style="text-decoration: none; color: #778899;">1</a>
+       {% if page_obj.previous_page_number != 1 %}
+           ...
+           <a href="?{% url_replace page=page_obj.previous_page_number %}" style="text-decoration: none; color: #778899;">{{ page_obj.previous_page_number }}</a>
+       {% endif %}
+   {% endif %}
+
+   {# Информация о текущей странице #}
+   {{ page_obj.number }}
+
+   {# Информация о следующих страницах #}
+   {% if page_obj.has_next %}
+       <a href="?{% url_replace page=page_obj.next_page_number %}" style="text-decoration: none; color: #778899;">{{ page_obj.next_page_number }}</a>
+       {% if paginator.num_pages != page_obj.next_page_number %}
+           ...
+           <a href="?{% url_replace page=page_obj.paginator.num_pages %}" style="text-decoration: none; color: #778899;">{{ page_obj.paginator.num_pages }}</a>
+       {% endif %}
+   {% endif %}
+<br><br>
+
+<br><br>
